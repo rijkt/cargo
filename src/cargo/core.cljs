@@ -6,4 +6,10 @@
 
 (enable-console-print!)
 
-(println "Hello world!")
+(defn create-grid [x y]
+    (println "create grid with dimension" x "x" y))
+
+(defn button-handler []
+  (let [x (. (.getElementById js/document "x") -value)
+        y (. (.getElementById js/document "y") -value)]
+  (create-grid x y)))

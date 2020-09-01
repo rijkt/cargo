@@ -3,8 +3,13 @@
     <head>
         <title>cargo</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <script src="out/cargo.js" type="text/javascript"></script>
     </head>
     <body>
-        <script src="out/cargo.js" type="text/javascript"></script>
+      <form>
+        <input id="x" name="x" type="number">
+        <input id="y" name="y" type="number">
+        <button type="button" id="create" onClick="cargo.core.button_handler()">Create Grid</button>
+      </form>
     </body>
 </html>
