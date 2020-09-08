@@ -6,10 +6,13 @@
 
 (enable-console-print!)
 
-(defn create-grid [x y]
-    (println "create grid with dimension" x "x" y))
+(defn create-grid [width height]
+  (let [container (.getElementById js/document "cargo-area")
+        style     (.createAttribute js/document "style")]
+    (set! (.-value style) (str "width: " width "px; height: " height "px;"))
+    (.setAttributeNode container style)))
 
 (defn button-handler []
-  (let [x (. (.getElementById js/document "x") -value)
-        y (. (.getElementById js/document "y") -value)]
+  (let [x (. (.getElementById js/document "width") -value)
+        y (. (.getElementById js/document "height") -value)]
   (create-grid x y)))
