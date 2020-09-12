@@ -7,12 +7,13 @@
     </head>
     <body>
       <h1>Cargo</h1>
+      <h2>Create Loading Area</h2>
       <form>
-        <label for="width">Width in cm.</label>
-        <input id="width" name="width" type="number">
-        <label for="height">Heigth in cm.</label>
-        <input id="height" name="height" type="number">
-        <button type="button" id="create" onClick="cargo.core.button_handler()">Create Grid</button>
+        <label for="truck-width">Width in cm.</label>
+        <input id="truck-width" name="truck-width" type="number">
+        <label for="truck-height">Heigth in cm.</label>
+        <input id="truck-height" name="truck-height" type="number">
+        <button type="button" id="create-truck" onClick="cargo.core.create_truck()">Create Grid</button>
       </form>
       <div id="cargo-area" class="cargo-area"></div>
     </body>
