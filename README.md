@@ -1,10 +1,20 @@
 # cargo
 
-FIXME: Write a one-line description of your library/project.
+Tool for planning truck loading by arranging blocks.
 
 ## Overview
 
-FIXME: Write a paragraph about the library/project and highlight its goals.
+Requirements and features:
+
+- Set dimensions of loading area and cargo in cm.
+- Label and categorise cargo.
+- Cargo can't overlap.
+- The multiple instances of cargo with the same dimensions can be created.
+- Optionally: Calculate optimal arrangement.
+
+Typical cargo area size: 7.2m x 2.44m (space for 18 Euro pallets).
+
+Made with [mies](https://github.com/swannodette/mies).
 
 ## Setup
 
@@ -48,9 +58,3 @@ Clean project specific out:
 Build a single release artifact with the following script and then open `index_release.html` in your browser.
 
     ./scripts/release
-
-## License
-
-Copyright © 2016 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at your option) any later version.
