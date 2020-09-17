@@ -6,12 +6,20 @@
 
 (enable-console-print!)
 
+(defn drag-over-handler [event]
+  (. event preventDefault))
+
+(defn drop-handler [event]
+  (. event preventDefault))
+
 (defn create-truck []
   (let [width (. (.getElementById js/document "truck-width") -value)
         height (. (.getElementById js/document "truck-height") -value)
         container (.getElementById js/document "truck-area")
         style     (.createAttribute js/document "style")]
     (set! (.-value style) (str "width: " width "px; height: " height "px;" "outline: solid black;"))
+    (.addEventListener container "dragover" drag-over-handler)
+    (.addEventListener container "drop" drop-handler)
     (.setAttributeNode container style)))
 
 (defn create-cargo []
