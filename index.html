@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <title>cargo</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <script src="out/cargo.js" type="text/javascript"></script>
+        <script src="out/cargo.js"></script>
     </head>
     <body>
       <h1>Cargo</h1>
@@ -15,6 +15,15 @@
         <input id="truck-height" name="truck-height" type="number">
         <button type="button" id="create-truck" onClick="cargo.core.create_truck()">Create Grid</button>
       </form>
-      <div id="cargo-area" class="cargo-area"></div>
+      <div id="truck-area"></div>
+      <h2>Create Cargo</h2>
+      <form>
+        <label for="cargo-width">Width in cm.</label>
+        <input id="cargo-width" name="cargo-width" type="number">
+        <label for="cargo-height">Height in cm.</label>
+        <input id="cargo-height" name="cargo-height" type=number>
+        <button type="button" id="create-cargo" onClick="cargo.core.create_cargo()">Create Cargo</button>
+      </form>
+      <div id="cargo-area"></div>
     </body>
 </html>
