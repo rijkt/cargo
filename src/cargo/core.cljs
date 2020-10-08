@@ -6,11 +6,17 @@
 
 (enable-console-print!)
 
-(defn drag-over-handler [event]
-  (. event preventDefault))
+(def counter 1) ; for id generation
+
+(defn drag-over-handler[event]
+  (set! (.. event -dataTransfer -dropEffect) "move")
+  (. event preventDefault)) ; prevent default behavior to mark as drop zone
 
 (defn drop-handler [event]
-  (. event preventDefault))
+  (. event preventDefault)
+  (let [id (.getData (.-dataTransfer event) "text/plain")
+        target (.-target event)]
+    (.appendChild target (.getElementById js/document id))))
 
 (defn create-truck []
   (let [width (. (.getElementById js/document "truck-width") -value)
@@ -22,13 +28,22 @@
     (.addEventListener container "drop" drop-handler)
     (.setAttributeNode container style)))
 
+(defn drag-start-handler [event]
+  (let [id (.. event -target -id)]
+    (.setData (.-dataTransfer event) "text/plain" id)))
+
 (defn create-cargo []
   (let [width (. (.getElementById js/document "cargo-width") -value)
         height (. (.getElementById js/document "cargo-height") -value)
         container (.getElementById js/document "cargo-area")
         style (.createAttribute js/document "style")
-        cargo (.createElement js/document "div")]
+        cargo (.createElement js/document "div")
+        id (str "cargo-" counter)]
     (set! (.-value style) (str "width: " width "px; height: " height "px;" "background-color: green;"))
     (.setAttributeNode cargo style)
+    (.setAttribute cargo "id" id)
     (.setAttribute cargo "draggable" "true")
-    (.appendChild container cargo)))
+    (.addEventListener cargo "dragstart" drag-start-handler)
+    (.appendChild container cargo)
+    (set! counter (inc counter))))
+
