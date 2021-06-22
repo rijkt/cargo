@@ -31,12 +31,12 @@ and you should see an alert in the browser window.
 
 To clean all compiled files:
 
-   lein clean
+    lein clean
 
 To create a production build run:
 
-   lein clean
-   lein fig:min
+    lein clean
+    lein fig:min
 
 Use CIDER with:
 
