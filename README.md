@@ -9,7 +9,8 @@ Requirements and features:
 - Set dimensions of loading area and cargo in cm.
 - Label and categorise cargo.
 - Cargo can't overlap.
-- The multiple instances of cargo with the same dimensions can be created.
+- Multiple instances of cargo with the same dimensions can be created.
+- Rotation
 - Optionally: Calculate optimal arrangement.
 
 Typical cargo area size: 7.2m x 2.44m (space for 18 Euro pallets).

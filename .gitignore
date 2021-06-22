@@ -11,3 +11,5 @@ pom.xml
 .repl*
 *.cljs#
 .#*.cljs
+.cljs_node_repl/
+
