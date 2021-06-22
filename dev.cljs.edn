@@ -1,0 +1,6 @@
+^{:watch-dirs ["test" "src"]
+  :css-dirs ["resources/public/css"]
+  :auto-testing true
+   }
+{:main cargo.core
+ :nrepl-middleware [cider.piggieback/wrap-cljs-repl]}

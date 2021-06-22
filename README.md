@@ -15,47 +15,34 @@ Requirements and features:
 
 Typical cargo area size: 7.2m x 2.44m (space for 18 Euro pallets).
 
-Made with [mies](https://github.com/swannodette/mies).
+## Development
 
-## Setup
+To get an interactive development environment run:
 
-Most of the following scripts require [rlwrap](http://utopia.knoware.nl/~hlub/uck/rlwrap/) (on OS X installable via brew).
+    lein fig:build
 
-Build your project once in dev mode with the following script and then open `index.html` in your browser.
+This will auto compile and send all changes to the browser without the
+need to reload. After the compilation process is complete, you will
+get a Browser Connected REPL. An easy way to try it is:
 
-    ./scripts/build
+    (js/alert "Am I connected?")
 
-To auto build your project in dev mode:
+and you should see an alert in the browser window.
 
-    ./scripts/watch
+To clean all compiled files:
 
-To start an auto-building Node REPL:
+   lein clean
 
-    ./scripts/repl
+To create a production build run:
 
-To get source map support in the Node REPL:
+   lein clean
+   lein fig:min
 
-    lein npm install
-    
-To start a browser REPL:
-    
-1. Uncomment the following lines in src/cargo/core.cljs:
-```clojure
-;; (defonce conn
-;;   (repl/connect "http://localhost:9000/repl"))
-```
-2. Run `./scripts/brepl`
-3. Browse to `http://localhost:9000` (you should see `Hello world!` in the web console)
-4. (back to step 3) you should now see the REPL prompt: `cljs.user=>`
-5. You may now evaluate ClojureScript statements in the browser context.
-    
-For more info using the browser as a REPL environment, see
-[this](https://github.com/clojure/clojurescript/wiki/The-REPL-and-Evaluation-Environments#browser-as-evaluation-environment).
-    
-Clean project specific out:
+Use CIDER with:
 
-    lein clean
-     
-Build a single release artifact with the following script and then open `index_release.html` in your browser.
+    cider-jack-in-cljs (C-c M-J)
 
-    ./scripts/release
+Two prompts will show up. Use the following options:
+
+    ClojureScript REPL type: figwheel-main
+    Main build: :dev
