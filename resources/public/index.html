@@ -11,19 +11,21 @@
       <h1>Cargo</h1>
       <h2>Create Loading Area</h2>
       <form>
-        <label for="truck-width">Width in cm.</label>
-        <input id="truck-width" name="truck-width" type="number" min="0">
-        <label for="truck-height">Heigth in cm.</label>
-        <input id="truck-height" name="truck-height" type="number" min="0">
+        <label for="truck-width">Width in cm:</label>
+        <input id="truck-width" name="truck-width" type="number" min="0" value="720">
+        <label for="truck-height">Heigth in cm:</label>
+        <input id="truck-height" name="truck-height" type="number" min="0" value="244">
         <button type="button" id="create-truck" onClick="cargo.core.create_truck()">Create Grid</button>
       </form>
       <div id="canvas-wrapper"></div>
       <h2>Create Cargo</h2>
       <form>
-        <label for="cargo-width">Width in cm.</label>
-        <input id="cargo-width" name="cargo-width" type="number" min="0">
-        <label for="cargo-height">Height in cm.</label>
-        <input id="cargo-height" name="cargo-height" type="number" min="0" >
+        <label for="cargo-width">Width in cm:</label>
+        <input id="cargo-width" name="cargo-width" type="number" min="0" value="120">
+        <label for="cargo-height">Height in cm:</label>
+        <input id="cargo-height" name="cargo-height" type="number" min="0" value="80">
+        <label for="cargo-color">Color:</label>
+        <input id="cargo-color" name="carg-color" type="color" value="#3163FF">
         <button type="button" id="create-cargo" onClick="cargo.core.create_cargo()">Create Cargo</button>
       </form>
 
