@@ -1,14 +1,11 @@
-(ns cargo.core
-  (:require [clojure.browser.repl :as repl]))
-
-;; (defonce conn
-;;   (repl/connect "http://localhost:9000/repl"))
+(ns cargo.core)
 
 (enable-console-print!)
 
 (def counter 1) ; for id generation
+(def state (atom {}))
 
-(defn drag-over-handler[event]
+(defn drag-over-handler [event]
   (set! (.. event -dataTransfer -dropEffect) "move")
   (. event preventDefault)) ; prevent default behavior to mark as drop zone
 
@@ -47,3 +44,18 @@
     (.appendChild container cargo)
     (set! counter (inc counter))))
 
+(defn read-form! [id]
+  (int (. (.getElementById js/document id) -value)))
+  
+(defn update-form-state [event]
+  (let [truck-width (read-form! "truck-width")
+        truck-height (read-form! "truck-height")
+        cargo-width (read-form! "cargo-width")
+        cargo-height (read-form! "cargo-height")]
+    (swap! state assoc :tw truck-width :th truck-height :cw cargo-width :ch cargo-height)))
+
+(defn setup-event-handlers []
+(let [inputs (array-seq (.getElementsByTagName js/document "input"))]
+  (dorun (map #(.addEventListener % "change" update-form-state) inputs))))
+
+(setup-event-handlers)
