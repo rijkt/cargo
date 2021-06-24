@@ -5,7 +5,8 @@
   :min-lein-version "2.7.1"
   
   :dependencies [[org.clojure/clojure "1.10.0"]
-                 [org.clojure/clojurescript "1.10.339"]]
+                 [org.clojure/clojurescript "1.10.339"]
+                 [cljsjs/fabric "1.5.0-1"]]
   
   :plugins [[lein-npm "0.6.2"]]
   :npm {:dependencies [[source-map-support "0.4.0"]]}
