@@ -59,9 +59,11 @@
         height (:ch @state)
         color (:cc @state)
         canvas (:canvas @state)
-        options {:width width :height height :fill color}
-        rect (new (.-Rect js/fabric) (clj->js options))]
-    (.setControlsVisibility rect (js-obj "mtr" false)) ; disable middle-top-rotate control
+        rect-options {:width width :height height :fill color}
+        rect (new (.-Rect js/fabric) (clj->js rect-options))
+        control-options {:mtr false :tr false :br false :bl false :mb false
+                         :ml false :mr false :mt false :tl false}]
+    (.setControlsVisibility rect (clj->js control-options))
     (.add canvas rect)))
 
 (defn read-form! [id]
