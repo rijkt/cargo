@@ -81,9 +81,21 @@
            :ch cargo-height
            :cc cargo-color)))
 
+(defn keydown-handler [e]
+  (if (= (.-code e) "Delete")
+    (let [canvas (:canvas @state)
+          single (.getActiveObject canvas)
+          group (.getActiveGroup canvas)]
+      (cond
+        single
+        (.remove single canvas)
+        group ; todo: figure out why removal rendering only happens after the next click
+        (dorun (map #(.remove  % canvas) (js->clj (.-objects group))))))))
+
 (defn setup-event-handlers []
-(let [inputs (array-seq (.getElementsByTagName js/document "input"))]
-  (dorun (map #(.addEventListener % "change" update-form-state) inputs))))
+  (let [inputs (array-seq (.getElementsByTagName js/document "input"))]
+    (dorun (map #(.addEventListener % "change" update-form-state) inputs)))
+  (.addEventListener js/document "keydown" keydown-handler)) ; could be moved to canvas
 
 (update-form-state) ; read data left in form after refresh
 (setup-event-handlers)
