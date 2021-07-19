@@ -5,6 +5,34 @@
 
 (def state (atom {}))
 
+(defn movement-handler [options]
+  (let [target (.-target options)
+        x (.-left target)
+        y (.-top target)
+        width (:tw @state)
+        height (:th @state)
+        x-under? (< x 0)
+        y-under? (< y 0)
+        x-over? (> (+ x (.-width target)) width)
+        y-over? (> (+ y (.-height target)) height)]
+    (cond (and x-under? y-under?) (do
+                                    (. target setLeft 0)
+                                    (. target setTop 0))
+          (and x-under? y-over?) (do
+                                   (. target setLeft 0)
+                                   (. target setTop (- height (.-height target))))
+          (and x-over? y-under?) (do 
+                                   (. target setLeft (- width (.-width target)))
+                                   (. target setTop 0))
+          (and x-over? y-over?) (do
+                                  (. target setLeft (- width (.-width target)))
+                                  (. target setTop (- height (.-height target))))
+          x-under? (. target setLeft 0)
+          y-under? (. target setTop 0)
+          x-over? (. target setLeft (- width (.-width target)))
+          y-over? (. target setTop (- height (.-height target))))
+    (. target setCoords)))
+
 (defn create-truck
   "Create loading area based on form inputs. Since creating a fabric Canvas changes the DOM,
   this fn first deletes any existing canvas and creates a new one."
@@ -17,7 +45,10 @@
           height (:th @state)
           fabric-canvas (new (.-Canvas js/fabric) new-canvas)]
       (.setDimensions fabric-canvas (clj->js {:width width :height height}))
+      (.on fabric-canvas (js-obj "object:moving" movement-handler)) ; arg: {:target <rect> :e <MouseEvent>}
+      
       (swap! state assoc :canvas fabric-canvas))))
+
 
 (defn create-cargo []
   (let [width (:cw @state)
