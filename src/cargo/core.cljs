@@ -39,6 +39,11 @@
           y-over? (. target setTop (- height (.-height target))))
     (. target setCoords))) ; make control positions recalculate
 
+(defn remove-controls [obj]
+  (let [control-options {:mtr false :tr false :br false :bl false :mb false
+                         :ml false :mr false :mt false :tl false}]
+    (.setControlsVisibility obj (clj->js control-options))))
+
 (defn create-truck
   "Create loading area based on form inputs. Since creating a fabric Canvas changes the DOM,
   this fn first deletes any existing canvas and creates a new one."
@@ -52,6 +57,8 @@
           fabric-canvas (new (.-Canvas js/fabric) new-canvas)]
       (.setDimensions fabric-canvas (clj->js {:width width :height height}))
       (.on fabric-canvas (js-obj "object:moving" movement-handler))
+      (.on fabric-canvas (js-obj "selection:created" ; also gets triggered on update
+                                 #(remove-controls (.-target %))))
       (swap! state assoc :canvas fabric-canvas))))
 
 (defn create-cargo []
@@ -60,10 +67,8 @@
         color (:cc @state)
         canvas (:canvas @state)
         rect-options {:width width :height height :fill color}
-        rect (new (.-Rect js/fabric) (clj->js rect-options))
-        control-options {:mtr false :tr false :br false :bl false :mb false
-                         :ml false :mr false :mt false :tl false}]
-    (.setControlsVisibility rect (clj->js control-options))
+        rect (new (.-Rect js/fabric) (clj->js rect-options))]
+    (remove-controls rect)
     (.add canvas rect)))
 
 (defn read-form! [id]
