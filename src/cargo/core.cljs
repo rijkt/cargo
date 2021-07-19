@@ -58,10 +58,11 @@
   (let [width (:cw @state)
         height (:ch @state)
         color (:cc @state)
-        canvas (:canvas @state)]
-    (.add canvas
-          (new (.-Rect js/fabric)
-               (clj->js {:width width :height height :fill color})))))
+        canvas (:canvas @state)
+        options {:width width :height height :fill color}
+        rect (new (.-Rect js/fabric) (clj->js options))]
+    (.setControlsVisibility rect (js-obj "mtr" false)) ; disable middle-top-rotate control
+    (.add canvas rect)))
 
 (defn read-form! [id]
   (. (.getElementById js/document id) -value))
