@@ -5,7 +5,9 @@
 
 (def state (atom {}))
 
-(defn movement-handler [options]
+(defn movement-handler
+  "Takes a JS object with the properties target (fabric object) and e (Mouse Event)"
+  [options]
   (let [target (.-target options)
         x (.-left target)
         y (.-top target)
@@ -15,23 +17,27 @@
         y-under? (< y 0)
         x-over? (> (+ x (.-width target)) width)
         y-over? (> (+ y (.-height target)) height)]
-    (cond (and x-under? y-under?) (do
-                                    (. target setLeft 0)
-                                    (. target setTop 0))
-          (and x-under? y-over?) (do
-                                   (. target setLeft 0)
-                                   (. target setTop (- height (.-height target))))
-          (and x-over? y-under?) (do 
-                                   (. target setLeft (- width (.-width target)))
-                                   (. target setTop 0))
-          (and x-over? y-over?) (do
-                                  (. target setLeft (- width (.-width target)))
-                                  (. target setTop (- height (.-height target))))
+    (cond (and x-under? y-under?)
+          (do
+            (. target setLeft 0)
+            (. target setTop 0))
+          (and x-under? y-over?)
+          (do
+            (. target setLeft 0)
+            (. target setTop (- height (.-height target))))
+          (and x-over? y-under?)
+          (do
+            (. target setLeft (- width (.-width target)))
+            (. target setTop 0))
+          (and x-over? y-over?)
+          (do
+            (. target setLeft (- width (.-width target)))
+            (. target setTop (- height (.-height target))))
           x-under? (. target setLeft 0)
           y-under? (. target setTop 0)
           x-over? (. target setLeft (- width (.-width target)))
           y-over? (. target setTop (- height (.-height target))))
-    (. target setCoords)))
+    (. target setCoords))) ; make control positions recalculate
 
 (defn create-truck
   "Create loading area based on form inputs. Since creating a fabric Canvas changes the DOM,
@@ -45,10 +51,8 @@
           height (:th @state)
           fabric-canvas (new (.-Canvas js/fabric) new-canvas)]
       (.setDimensions fabric-canvas (clj->js {:width width :height height}))
-      (.on fabric-canvas (js-obj "object:moving" movement-handler)) ; arg: {:target <rect> :e <MouseEvent>}
-      
+      (.on fabric-canvas (js-obj "object:moving" movement-handler))
       (swap! state assoc :canvas fabric-canvas))))
-
 
 (defn create-cargo []
   (let [width (:cw @state)
