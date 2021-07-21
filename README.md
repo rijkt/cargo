@@ -46,3 +46,9 @@ Two prompts will show up. Use the following options:
 
     ClojureScript REPL type: figwheel-main
     Main build: :dev
+
+## Deployment
+
+    heroku container:push web -a cargo-planner
+
+    heroku container:release web -a cargo-planner
