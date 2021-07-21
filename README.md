@@ -13,7 +13,7 @@ Requirements and features:
 - Rotation
 - Optionally: Calculate optimal arrangement.
 
-Typical cargo area size: 7.2m x 2.44m (space for 18 Euro pallets).
+Typical cargo area size: 7.2m x 2.44m (space for 18 Euro pallets). Common large cargo area size: 13.6m x 2.44.
 
 ## Development
 
