@@ -100,7 +100,11 @@
 (defn setup-event-handlers []
   (let [inputs (array-seq (.getElementsByTagName js/document "input"))]
     (dorun (map #(.addEventListener % "change" update-form-state) inputs)))
-  (.addEventListener js/document "keydown" keydown-handler)) ; could be moved to canvas
+  (let [create-cargo-btn (.getElementById js/document "create-cargo")
+        create-truck-btn (.getElementById js/document "create-truck")]
+    (.addEventListener create-cargo-btn "click" create-cargo)
+    (.addEventListener create-truck-btn "click" create-truck))
+  (.addEventListener js/document "keydown" keydown-handler)) ; Could be moved to canvas
 
 (update-form-state) ; read data left in form after refresh
 (setup-event-handlers)
